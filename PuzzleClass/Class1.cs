@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Sudoku_Solver
 {
@@ -24,9 +22,13 @@ namespace Sudoku_Solver
 			int dimension = Convert.ToInt32(Math.Sqrt(Convert.ToDouble(arraysize)));
 			size = dimension;
 			//convert 1d array to 2d array
-			for (int i = 0; i < arraysize;i++) {
-				problem[i / 9, i % 9] = input[i]; }
+			for (int i = 0; i < arraysize; i++)
+			{
+				problem[i / 9, i % 9] = input[i];
+			}
 		}
+		public Puzzle()
+		{ }
 		private void assign(int[,] problem)
 		{
 			int ans = 0;
@@ -39,7 +41,7 @@ namespace Sudoku_Solver
 					ans = problem[i, j];
 					for (int count = 0; count < ans; count++)
 					{
-						PencilMark[i, j, count] =false;
+						PencilMark[i, j, count] = false;
 					}
 				}
 			}
@@ -56,8 +58,9 @@ namespace Sudoku_Solver
 			}
 		}
 
-		public bool validate(int[,] sln)
+		public bool validate()
 		{
+			int[,] sln = problem;
 			int row = 9;
 			int[] checksample = new int[row];
 
@@ -66,11 +69,11 @@ namespace Sudoku_Solver
 			{
 				for (int j = 0; j < row; j++)
 				{
-					checksample[j] = sln[i,j];
+					checksample[j] = sln[i, j];
 				}
 
-				if (ValidateRows(checksample)==false)	return false;
-				
+				if (ValidateRows(checksample) == false) return false;
+
 			}
 
 			//check columns
@@ -95,11 +98,11 @@ namespace Sudoku_Solver
 				int blockY = 0;
 				for (int i = 0; i < 9; i++)
 				{
-					checksample[i] = sln[(blockX*3 + i) / 3 + offsetX, (blockY*3 + i) % 3+offsetY];
+					checksample[i] = sln[(blockX * 3 + i) / 3 + offsetX, (blockY * 3 + i) % 3 + offsetY];
 				}
 				if (ValidateRows(checksample) == false) return false;
 				offsetY += 3;
-				if ((j+1) % 3 == 0)
+				if ((j + 1) % 3 == 0)
 				{
 					offsetY = 0;
 					offsetX += 3;
@@ -123,12 +126,28 @@ namespace Sudoku_Solver
 		{
 			for (int i = 0; i < 9; i++)
 			{
-				for (int j = i+1; j < 9; j++)
+				for (int j = i + 1; j < 9; j++)
 				{
 					if (row[i] == row[j]) { return false; }
 				}
 			}
 			return true;
 		}
+
+		public void displayPuzzzle()
+		{
+			Console.WriteLine(" -------------------------------------");
+			for (int i = 0; i < 9; i++)
+			{
+				for (int j = 0; j < 9; j++)
+				{
+					Console.Write(" | ");
+					Console.Write(problem[i,j]);
+				}
+				Console.Write(" |\n");
+				Console.WriteLine(" -------------------------------------");
+			}
+		}
+
 	}
 }

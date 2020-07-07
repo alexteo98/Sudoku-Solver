@@ -47,7 +47,7 @@ namespace Sudoku_Solver
             //send values to solve/check
             int[] submit = { 8, 3, 9, 2, 1, 6, 4, 5, 7, 2, 4, 5, 3, 8, 7, 1, 6, 9, 1, 6, 7, 9, 4, 5, 8, 2, 3, 9, 2, 8, 1, 7, 3, 6, 4, 5, 3, 5, 1, 6, 2, 4, 7, 9, 8, 6, 7, 4, 8, 5, 9, 3, 1, 2, 4, 8, 2, 5, 3, 1, 9, 7, 6, 5, 1, 6, 7, 9, 8, 2, 3, 4, 7, 9, 3, 4, 6, 2, 5, 8, 1 };
             Puzzle puzzle = new Puzzle (submit);
-            if (puzzle.validate(puzzle.problem) == true) Submit.Enabled = false;
+            if (puzzle.validate() == true) Submit.Enabled = false;
         }
 
         private void Form1_Load(object sender, EventArgs e)
