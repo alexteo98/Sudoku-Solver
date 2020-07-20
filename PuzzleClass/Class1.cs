@@ -14,8 +14,9 @@ namespace Sudoku_Solver
 		private int size = 0;
 		public bool solved = false;
 		public int[,] problem = new int[9, 9];
-		public bool[,,] PencilMark = new bool[9, 9, 9];
+		public bool[,,] possible_values = new bool[9, 9, 9];
 
+		//constructors
 		public Puzzle(int[] input)
 		{
 			int arraysize = input.GetLength(0);
@@ -28,36 +29,22 @@ namespace Sudoku_Solver
 			}
 		}
 		public Puzzle()
-		{ }
-		private void assign(int[,] problem)
 		{
-			int ans = 0;
-
-			//initialise all as false
-			for (int i = 0; i < size; i++)
+			for (int i = 0; i < 9; i++)
 			{
-				for (int j = 0; j < size; j++)
+				for (int j = 0; j < 9; j++)
 				{
-					ans = problem[i, j];
-					for (int count = 0; count < ans; count++)
-					{
-						PencilMark[i, j, count] = false;
-					}
+					problem[i, j] = 0;
 				}
 			}
-
-			//flip entered values as true
-			for (int i = 0; i < size; i++)
-			{
-				for (int j = 0; j < size; j++)
-				{
-					ans = problem[i, j];
-					PencilMark[i, j, ans - 1] = true;
-
-				}
-			}
+		}//no data given,set all to 0
+		public Puzzle(int[,] input)
+		{
+			problem = input;
 		}
 
+
+		//public tools
 		public bool validate()
 		{
 			int[,] sln = problem;
@@ -113,12 +100,104 @@ namespace Sudoku_Solver
 			return true;
 		}
 
-		private int[,] solve(bool[,,] problem)
+		public void displayPuzzzle()
 		{
-			int[,] sln = new int[9, 9];
+			Console.WriteLine(" -------------------------------------");
+			for (int i = 0; i < 9; i++)
+			{
+				for (int j = 0; j < 9; j++)
+				{
+					Console.Write(" | ");
+					Console.Write(problem[i, j]);
+				}
+				Console.Write(" |\n");
+				Console.WriteLine(" -------------------------------------");
+			}
+		}
 
 
+		//private functions
+		public void assign()
+		{
+			//initialise all as true, all values possible
+			for (int i = 0; i < size; i++)
+			{
+				for (int j = 0; j < size; j++)
+				{
+					for (int count = 0; count < 9; count++)
+					{
+						possible_values[i, j, count] = true;
+					}
+				}
+			}
 
+			/*//flip entered values as true
+			for (int i = 0; i < size; i++)
+			{
+				for (int j = 0; j < size; j++)
+				{
+					ans = problem[i, j];
+					possible_values[i, j, ans - 1] = true;
+
+				}
+			}
+			*/
+
+			//remove impossible values
+			for (int i = 0; i < 9; i++)
+			{
+				for (int j = 0; j < 9; j++)
+				{
+					if (problem[i, j] != 0)
+					{
+						for (int c = 0; c < 9; c++)//flag as impossible for rows
+						{
+							possible_values[i, c, problem[i, j]-1] = false;
+						}
+						for (int c = 0; c < 9; c++)//flag as impossible for columns
+						{
+							possible_values[c, j, problem[i, j] - 1] = false;
+						}
+						for (int c = 0; c < 9; c++)//flag as impossible for box
+						{
+							possible_values[c, j, problem[i, j] - 1] = false;
+						}
+					}
+				}
+			}
+			Console.WriteLine();
+		}
+
+		public int[,] solve()
+		{
+			int[,] sln = problem;
+			
+
+			for (int i = 0; i < 9; i++)
+			{
+				for (int j = 0; j < 9; j++)
+				{
+					if (sln[i, j] == problem[i, j] && problem[i, j] != 0) ;// filled already
+					else //not filled yet
+					{
+						bool valid = false;
+						while (valid == false)
+						{
+							for (int v = 1; v < 10; v++)
+							{
+								sln[i, j] = v;
+								valid = new Puzzle(sln).validate();
+								if (valid == true) break;
+								if (v == 9)
+								{
+
+								}
+							}
+						}
+					}
+
+				}
+			}
 			return sln;
 		}
 
@@ -128,26 +207,14 @@ namespace Sudoku_Solver
 			{
 				for (int j = i + 1; j < 9; j++)
 				{
+					if (row[i] == 0) break;
 					if (row[i] == row[j]) { return false; }
 				}
 			}
 			return true;
 		}
 
-		public void displayPuzzzle()
-		{
-			Console.WriteLine(" -------------------------------------");
-			for (int i = 0; i < 9; i++)
-			{
-				for (int j = 0; j < 9; j++)
-				{
-					Console.Write(" | ");
-					Console.Write(problem[i,j]);
-				}
-				Console.Write(" |\n");
-				Console.WriteLine(" -------------------------------------");
-			}
-		}
+		
 
 	}
 }
