@@ -20,6 +20,7 @@ namespace Sudoku_Solver
 		public int[,] _2dBoard = new int[9, 9];
 		private int globalcurrentCellIndex = 0;
 		public int repititions = 0;
+		private bool[,,] possibleValues = new bool[9,9, 9];
 
 
 		// constructors-------------------------------------------------------------------
@@ -36,7 +37,7 @@ namespace Sudoku_Solver
 				{
 					_2dBoard[i, j] = 0;
 				}
-					
+
 			}
 		}
 		public Sudoku(int[] input)
@@ -44,6 +45,7 @@ namespace Sudoku_Solver
 			//assign to 1d board
 			board = input;
 			_2dBoard = convertDimensions(input);
+			removeImpossibleValues();
 		}
 		public Sudoku(int[,] input)
 		{
@@ -51,8 +53,28 @@ namespace Sudoku_Solver
 			_2dBoard = input;
 
 			board = convertDimensions(input);
+			removeImpossibleValues();
 		}
 
+		//initialize
+		private void removeImpossibleValues()
+		{
+			for (int i = 0; i < possibleValues.GetLength(0); i++)	
+			{
+				for (int j = 0; j < possibleValues.GetLength(1); j++)
+				{
+					for (int k = 0; k < possibleValues.GetLength(1); k++)
+					{
+						possibleValues[i, j,k] = true;
+					}
+				}
+			}   //sets all as possible values
+			removePossibilities();
+			//for (int i = 0; i < board.Length; i++)
+			//{
+				//if (board[i] == 0) continue; // skips empty cells
+			//}	  //sets impossible values based on given cells
+		}
 
 		//methods-------------------------------------------------------------------
 		public int[,] convertDimensions(int[] input)
@@ -135,6 +157,24 @@ namespace Sudoku_Solver
 			}
 
 			return true;
+		}
+
+		public void solve()
+		{
+			board.CopyTo(workingBoard, 0);
+			globalcurrentCellIndex = findFirstEmptyCell();
+			tryValue(globalcurrentCellIndex);
+			while (isSolved() == false)
+			{
+				globalcurrentCellIndex = cellSelector(globalcurrentCellIndex, 1);
+				tryValue(globalcurrentCellIndex);
+			}
+
+			if (isSolved())
+			{
+				displayBoard(convertDimensions(workingBoard));
+			}
+
 		}
 
 
@@ -257,24 +297,6 @@ namespace Sudoku_Solver
 			}
 		}
 
-		public void solve()
-		{
-			board.CopyTo(workingBoard,0);
-			globalcurrentCellIndex = findFirstEmptyCell();
-			tryValue(globalcurrentCellIndex);
-			while (isSolved()==false)
-			{
-				globalcurrentCellIndex = cellSelector(globalcurrentCellIndex, 1);
-				tryValue(globalcurrentCellIndex);
-			}
-
-			if (isSolved())
-			{
-				displayBoard(convertDimensions(workingBoard));
-			}
-
-		}
-
 		private bool isSolved()
 		{
 			if (validateBoard(workingBoard) && isComplete()) return true;
@@ -299,7 +321,51 @@ namespace Sudoku_Solver
 			return 0;
 		}
 
+		private void removePossibilities()
+		{
+			for (int i = 0; i < _2dBoard.GetLength(0); i++)
+			{
+				for (int j = 0; j < _2dBoard.GetLength(1); j++)
+				{
+					if (_2dBoard[i,j] == 0) continue;
+					else
+					{
+						for (int removal = 0; removal < _2dBoard.GetLength(0); removal++) 
+						{
+							possibleValues[i, removal, _2dBoard[i, j]-1] = false;//remove row possibilities
+							possibleValues[removal, j, _2dBoard[i, j] - 1] = false; // remove column possibilities
+						}
+						int block = -1;
+						if (j >= 0 && j < 3) block++;
+						else if (j < 6) block += 2;
+						else block += 3;
 
+						if (i >= 0 && i < 3) block += 0;
+						else if (i < 6) block += 3;
+						else block += 6;
+
+						removeBlockPossibilities(block, _2dBoard[i, j] - 1);
+					}
+				}
+			}
+		}
+		private void removeBlockPossibilities(int blockNo,int value)
+		{
+			int startI, startJ;
+
+			startJ = (blockNo%3) * 3;
+			startI = (blockNo/3)*3;
+
+			for (int i = startI; i < startI+3; i++)
+			{
+				for (int j = startJ; j < startJ+3; j++)
+				{
+					possibleValues[i, j, value] = false;
+				}
+			}
+			 
+
+		}
 
 	}
 }
