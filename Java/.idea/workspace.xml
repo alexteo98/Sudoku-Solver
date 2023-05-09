@@ -2,13 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0ff9e0e9-cc10-442f-8870-ea0ab90725f9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Graph/Node.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Sudoku/SampleSudokuManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Sudoku/Sudoku.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../C#/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../C#/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Sudoku/JsonSampleSudoku1.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Sudoku/JsonSampleSudokuBlank.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Sudoku/JsonSudokuParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Sudoku/SampleSudokuBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Java.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Java.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Sudoku/SampleSudokuManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sudoku/SampleSudokuManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,16 +36,24 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Global Libraries" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/Sudoku" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.35539216" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\alext\source\repos\Sudoku-Solver\Java\src\Sudoku" />
       <recent name="C:\Users\alext\source\repos\Sudoku-Solver\Java" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="Sudoku" />
     </key>
   </component>
   <component name="RunManager">
@@ -82,11 +91,6 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main.java</url>
-          <line>13</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Sudoku/Sudoku.java</url>
           <line>115</line>
           <option name="timeStamp" value="9" />
@@ -103,8 +107,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main.java</url>
-          <line>12</line>
-          <option name="timeStamp" value="12" />
+          <line>21</line>
+          <option name="timeStamp" value="22" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

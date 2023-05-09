@@ -1,25 +1,9 @@
 package Sudoku;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class SampleSudokuManager{
     public Sudoku Sample1 = new SampleSudoku1Builder().build();
     public Sudoku Sample2 = new SampleSudoku2Builder().build();
-}
-
-abstract class SampleSudokuBuilder{
-    protected Sudoku sudoku = new Sudoku();
-    protected List<int[]> initVals = new ArrayList<>();
-
-    protected void addInitVal(int x,int y, int val){
-        initVals.add(new int[]{x,y,val});
-    }
-
-    public Sudoku build() {
-        sudoku.initValues(initVals);
-        return sudoku;
-    }
 }
 
 class SampleSudoku1Builder extends SampleSudokuBuilder{
